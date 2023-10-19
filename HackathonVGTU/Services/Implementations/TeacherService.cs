@@ -34,7 +34,7 @@ namespace HackathonVGTU.API.Services.Implementations
             using (var dbcontext = await this.factory.CreateDbContextAsync())
             {
                 var resultList = await dbcontext.Teachers
-                    .Where(item => regex.IsMatch($"{item.Surname} {item.Name} {item.Patronymic}")).ToListAsync()
+                    .Where(item => regex.IsMatch($"{item.Surname} {item.Name} {item.Patronymic}")).ToListAsync();
 
                 return mapper.Map<List<TeacherDto>>(resultList);
             }
