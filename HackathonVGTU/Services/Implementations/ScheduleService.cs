@@ -27,7 +27,13 @@ namespace HackathonVGTU.API.Services.Implementations
             }
         }
 
-
+        public async Task<List<string>> GetAllFaculties()
+        {
+            using (var dbcontext = await this.factory.CreateDbContextAsync())
+            {
+                return await dbcontext.Schedules.Select(item => item.Faculty).Distinct().ToListAsync();
+            }
+        }
 
         public async Task<List<string>> GetGroupsList()
         {

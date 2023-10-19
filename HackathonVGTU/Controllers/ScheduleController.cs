@@ -38,5 +38,11 @@ namespace HackathonVGTU.API.Controllers
         {
             return this.Json(await this.ScheduleService.GetSchedules(group));
         }
+
+        [HttpGet, Route("GetAllFaculties")]
+        public async Task<JsonResult> GetAllFaculties()
+        {
+            return this.Json(await this.ScheduleService.GetAllFaculties());
+        }
     }
 }
