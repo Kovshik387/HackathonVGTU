@@ -27,6 +27,8 @@ namespace HackathonVGTU.API.Services.Implementations
             }
         }
 
+
+
         public async Task<List<string>> GetGroupsList()
         {
             using (var dbcontext = await this.factory.CreateDbContextAsync())
