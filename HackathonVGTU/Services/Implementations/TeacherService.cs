@@ -23,7 +23,7 @@ namespace HackathonVGTU.API.Services.Implementations
         {
             using (var dbcontext = await this.factory.CreateDbContextAsync())
             {
-                await dbcontext.AddAsync(mapper.Map<TeacherEntity>(teacher));
+                await dbcontext.AddAsync(this.mapper.Map<TeacherEntity>(teacher));
                 await dbcontext.SaveChangesAsync();
             }
         }
@@ -36,7 +36,7 @@ namespace HackathonVGTU.API.Services.Implementations
                 var resultList = await dbcontext.Teachers
                     .Where(item => regex.IsMatch($"{item.Surname} {item.Name} {item.Patronymic}")).ToListAsync()
 
-                return mapper.Map<List<TeacherDto>>(resultList);
+                return this.mapper.Map<List<TeacherDto>>(resultList);
             }
         }
 
@@ -45,7 +45,7 @@ namespace HackathonVGTU.API.Services.Implementations
             using (var dbcontext = await this.factory.CreateDbContextAsync())
             {
                 var result = dbcontext.Teachers.FirstOrDefaultAsync(item => item.Code == code);
-                return mapper.Map<TeacherDto>(result);
+                return this.mapper.Map<TeacherDto>(result);
             }
         }
     }
