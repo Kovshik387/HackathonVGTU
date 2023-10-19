@@ -25,7 +25,7 @@ namespace HackathonVGTU.DAL.Entities
         [MaxLength(100)]
         public string Post { get; set; } = default!;
 
-        [MaxLength(20)]
+        [MaxLength(100)]
         public string? Phone { get; set; } = default!;
 
         [MaxLength(100)]
