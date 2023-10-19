@@ -18,19 +18,10 @@ namespace HackathonVGTU.DAL.Entities
         [MaxLength(50)]
         public string GroupName { get; set; } = default!;
 
-        [MaxLength(100)]
-        public string Lesson { get; set; } = default!;
-
-        [MaxLength(50)]
-        public string Auditorium { get; set; } = default!;
-
         [MaxLength(50)]
         public string WeekDay { get; set; } = default!;
         public WeekType WeekType { get; set; } = default!;
 
-        [ForeignKey(nameof(Teacher))]
-        public int TeacherId { get; set; } = default!;
-        public TeacherEntity Teacher { get; set; } = new();
-
+        public List<LessonEntity> Lessons { get; set; } = new();
     }
 }
