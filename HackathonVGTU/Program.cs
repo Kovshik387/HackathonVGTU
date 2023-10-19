@@ -1,4 +1,5 @@
 using HackathonVGTU.API.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,12 +13,18 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+var factory = app.Services.GetService<IDbContextFactory<HackathonVGTU.DAL.VgtuFinderDbContext>>();
+
+using (var dbcontext = await factory!.CreateDbContextAsync())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    await dbcontext.Database.MigrateAsync();
 }
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
