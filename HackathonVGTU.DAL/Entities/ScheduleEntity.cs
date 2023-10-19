@@ -18,6 +18,9 @@ namespace HackathonVGTU.DAL.Entities
         [MaxLength(50)]
         public string GroupName { get; set; } = default!;
 
+        [MaxLength(200)]
+        public string Faculty { get; set; } = default!;
+
         [MaxLength(50)]
         public string WeekDay { get; set; } = default!;
         public WeekType WeekType { get; set; } = default!;

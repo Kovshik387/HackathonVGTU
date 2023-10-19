@@ -3,6 +3,7 @@ using System;
 using HackathonVGTU.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HackathonVGTU.DAL.Migrations
 {
     [DbContext(typeof(VgtuFinderDbContext))]
-    partial class VgtuFinderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231019093529_InitDb5")]
+    partial class InitDb5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +64,7 @@ namespace HackathonVGTU.DAL.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("Lessons");
+                    b.ToTable("LessonEntity");
                 });
 
             modelBuilder.Entity("HackathonVGTU.DAL.Entities.LoggingEntity", b =>
@@ -113,6 +116,9 @@ namespace HackathonVGTU.DAL.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
+                    b.Property<int?>("TeacherEntityId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("WeekDay")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -122,6 +128,8 @@ namespace HackathonVGTU.DAL.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TeacherEntityId");
 
                     b.ToTable("Schedules");
                 });
@@ -151,8 +159,8 @@ namespace HackathonVGTU.DAL.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("text");
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("bytea");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -193,7 +201,7 @@ namespace HackathonVGTU.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("HackathonVGTU.DAL.Entities.TeacherEntity", "Teacher")
-                        .WithMany("Lessons")
+                        .WithMany()
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -205,12 +213,19 @@ namespace HackathonVGTU.DAL.Migrations
 
             modelBuilder.Entity("HackathonVGTU.DAL.Entities.ScheduleEntity", b =>
                 {
+                    b.HasOne("HackathonVGTU.DAL.Entities.TeacherEntity", null)
+                        .WithMany("Schedules")
+                        .HasForeignKey("TeacherEntityId");
+                });
+
+            modelBuilder.Entity("HackathonVGTU.DAL.Entities.ScheduleEntity", b =>
+                {
                     b.Navigation("Lessons");
                 });
 
             modelBuilder.Entity("HackathonVGTU.DAL.Entities.TeacherEntity", b =>
                 {
-                    b.Navigation("Lessons");
+                    b.Navigation("Schedules");
                 });
 #pragma warning restore 612, 618
         }

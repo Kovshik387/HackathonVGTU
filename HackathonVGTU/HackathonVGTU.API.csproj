@@ -18,10 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\HackathonVGTU.DAL\HackathonVGTU.DAL.csproj" />
   </ItemGroup>
 
