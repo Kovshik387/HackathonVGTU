@@ -1,20 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using AngleSharp;
-using AngleSharp.Html.Parser;
-using Microsoft.Extensions.Logging;
-using AngleSharp.Html.Dom;
-using HackathonVGTU.DAL.Entities;
+﻿using HackathonVGTU.API.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 
 namespace HackathonVGTU.API.Controllers
 {
+    [Controller, Route("teacher")]
     public class TeacherController : Controller
     {
-        private readonly ILogger<TeacherController> _logger;
-        public TeacherController(ILogger<TeacherController> logger) => _logger = logger;
+        public ITeacherService TeacherService { get; private set; } = default!;
+        public ILogger<TeacherController> Logger { get; private set; } = default!;
 
-        [Route("/GetTeacher")]
-        [HttpGet]
-        public async Task<IList<TeacherEntity>> TeacherBy()
         {
             var base_url = "https://cchgeu.ru";
 
@@ -30,7 +25,7 @@ namespace HackathonVGTU.API.Controllers
             List<TeacherEntity> teacher_data = new();
 
             foreach ( var par in pars)
-            {
+        {
                 var doc_teacher = await context.OpenAsync(base_url + par.LastElementChild!.GetAttribute("href"));
 
                 var temp = doc.Title.Replace("\t","").Split(); // Имя фамилия
@@ -45,8 +40,8 @@ namespace HackathonVGTU.API.Controllers
                 //{
                 //    Department
                 //});
-            }
-            
+        }
+
             //foreach (var url_item in url_teacher ) 
             //{
             //    var doc_teacher = await context.OpenAsync(url_item);

@@ -36,7 +36,7 @@ namespace HackathonVGTU.DAL.Entities
         public string Department { get; set; } = default!;
         public int Code { get; set; } = default!;
 
-        public byte[]? Image { get; set; } = default!;
-        public List<ScheduleEntity> Schedules { get; set; } = new();
+        public string? Image { get; set; } = default!;
+        public List<LessonEntity> Lessons { get; set; } = new();
     }
 }

@@ -10,14 +10,14 @@ namespace HackathonVGTU.API.Services
     {
         public static IServiceCollection AddBllServices(this IServiceCollection collection, IConfiguration configuration)
         {
-
             return collection
                 .AddAutoMapper(typeof(EntitiesMapping))
                 .AddDbContextFactory<VgtuFinderDbContext>(options =>
                 {
                     options.UseNpgsql(configuration.GetConnectionString("Default"));
                 })
-                .AddTransient<ITeacherService, TeacherService>();
+                .AddTransient<ITeacherService, TeacherService>()
+                .AddTransient<IScheduleService, ScheduleService>();
         }
     }
 }
