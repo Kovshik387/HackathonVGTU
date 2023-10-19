@@ -4,7 +4,6 @@ using HackathonVGTU.API.Services.Interfaces;
 using HackathonVGTU.DAL;
 using HackathonVGTU.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 
 namespace HackathonVGTU.API.Services.Implementations
@@ -33,12 +32,12 @@ namespace HackathonVGTU.API.Services.Implementations
         {
             using (var dbcontext = await this.factory.CreateDbContextAsync())
             {
-                var GetFullname = Expression<>.Lambda((TeacherEntity t) => string.Concat(t.Surname, " ", t.Name, " ", t.Patronymic));
                 var resultList = name switch
                 {
                     null => await dbcontext.Teachers.ToListAsync(),
                     _ => await dbcontext.Teachers
-                        .Where(t => EF.Functions.Like(GetFullname(t)?., $"%{name ?? string.Empty}%"))
+                        .Where(t => EF.Functions.Like(string.Join(" ", t.Surname, t.Name, t.Patronymic), 
+                            $"%{name ?? string.Empty}%"))
                         .ToListAsync(),
                 };
                 return this.mapper.Map<List<TeacherDto>>(resultList);
