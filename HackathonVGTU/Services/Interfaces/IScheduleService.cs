@@ -9,5 +9,7 @@ namespace HackathonVGTU.API.Services.Interfaces
 
         public Task<List<string>> GetGroupsListByFaculty(string? faculty);
         public Task<List<string>> GetGroupsList();
+
+        public Task<ScheduleDto?> GetSchedules(string group);
     }
 }
