@@ -17,7 +17,7 @@ namespace HackathonVGTU.API.Services.DataTransfer
 
         public string Department { get; set; } = default!;
         public int Code { get; set; } = default!;
-        public byte[]? Image { get; set; } = default!;
+        public string? Image { get; set; } = default!;
         public List<ScheduleEntity> Schedules { get; set; } = new();
     }
 }
