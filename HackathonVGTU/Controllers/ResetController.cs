@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace HackathonVGTU.API.Controllers
 {
-    [Controller, Route("reset")]
+    [Controller, Route("/")]
     public class ResetController : Controller
     {
         public ITeacherService TeacherService { get; set; } = default!;
@@ -25,7 +25,7 @@ namespace HackathonVGTU.API.Controllers
             this.TeacherService = teacherService;
         }
 
-        [HttpGet, Route("/")]
+        [HttpGet, Route("/reset")]
         public async Task AllReset()
         {
             var config = Configuration.Default.WithDefaultLoader();
