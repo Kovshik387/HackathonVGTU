@@ -19,12 +19,9 @@ using (var dbcontext = await factory!.CreateDbContextAsync())
 {
     await dbcontext.Database.MigrateAsync();
 }
-    // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
+// Configure the HTTP request pipeline.
+app.UseSwagger().UseSwaggerUI();
+
 // app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
